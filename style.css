@@ -31,11 +31,11 @@ body{
 /* style.css ─ 既存の .btn-go をまるごと置き換え */
 .btn-go{
   position:fixed;
-  bottom:80rem;             /* 画面最下部ギリギリまで下げる */
+  bottom:50rem;             /* 画面最下部ギリギリまで下げる */
   left:50%;
   transform:translateX(-50%);
-  width:100vw;   max-width:250px;  /* ひと回り小型化（元は 60vw） */
-  height:100vw;  max-height:250px;
+  width:100vw;   max-width:300px;  /* ひと回り小型化（元は 60vw） */
+  height:100vw;  max-height:300px;
   border-radius:50%;
   border:6px solid #ff6767;
   background:radial-gradient(#ddd 30%, #aaa 90%);
