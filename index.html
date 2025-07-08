@@ -8,25 +8,22 @@
 </head>
 <body>
 
-  <h1>ぺかった〜</h1>
-
-  <!-- カウンター表示 -->
+  <!-- カウンター -->
   <section id="panel">
     <div><span>ペカ回数</span><strong id="hits">0</strong></div>
     <div><span>累計回転数</span><strong id="spins">0</strong></div>
   </section>
 
-  <!-- ランプ画像（JPEG 2 枚を重ねる） -->
-  <div id="lamp">
-    <img src="assets/gogo_off.jpeg" alt="GOGO OFF" class="lamp-off">
-    <img src="assets/gogo_on.jpeg"  alt="GOGO ON"  class="lamp-on">
+  <!-- ランプ（2 枚を完全に重ねて位置ズレ解消） -->
+  <div id="lamp" class="off">
+    <img src="assets/gogo_off.jpeg" alt="GOGO OFF" class="lamp-img lamp-off">
+    <img src="assets/gogo_on.jpeg"  alt="GOGO ON"  class="lamp-img lamp-on">
   </div>
 
-  <!-- ボタン -->
-  <button id="push" class="btn-main">GO!</button>
-  <button id="reset" class="btn-sub">リセット</button>
+  <!-- 唯一の GO ボタン（大きな円） -->
+  <button id="push" class="btn-go">GO!</button>
 
-  <!-- ペカ音（任意で差し替え） -->
+  <!-- ペカ音 -->
   <audio id="snd-hit" src="assets/juggler_hit.mp3" preload="auto"></audio>
 
   <script src="app.js"></script>

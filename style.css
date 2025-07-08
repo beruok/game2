@@ -1,47 +1,45 @@
-/* 画面全体の基本スタイル ------------------------------------ */
+/* --- 基本 ------------------------------------------------- */
 *{box-sizing:border-box}
 body{
-  margin:0; padding:1.2rem;
+  margin:0; padding:1rem;
   background:#000; color:#fff;
   font-family:sans-serif; text-align:center;
 }
-
-/* タイトル */
-h1{margin:.2rem 0 1rem;font-size:1.6rem}
-
-/* カウンター部 ---------------------------------------------- */
 #panel{
   display:flex; justify-content:space-around;
-  margin-bottom:1.2rem;
+  margin-bottom:1rem;
 }
 #panel span{display:block;font-size:.8rem;opacity:.8}
-#panel strong{font-size:2.4rem;font-family:monospace}
+#panel strong{font-size:2.3rem;font-family:monospace}
 
-/* ランプ ----------------------------------------------------- */
+/* --- ランプ（位置ズレ防止に absolute 重ね） -------------- */
 #lamp{
   position:relative;
-  width:80vw;max-width:320px;margin:1.8rem auto;
+  width:80vw; max-width:320px;
+  margin:1.6rem auto;
 }
-#lamp img{
-  width:100%;height:auto;display:block;
-  transition:opacity .15s linear;
+.lamp-img{
+  position:absolute; top:0; left:0;
+  width:100%; height:auto;
 }
-/* 初期：ON を透明に、OFF を表示 */
-.lamp-on {opacity:0}
-.lamp-off{opacity:1}
+#lamp.off  .lamp-on {opacity:0}
+#lamp.off  .lamp-off{opacity:1}
+#lamp.on   .lamp-on {opacity:1}
+#lamp.on   .lamp-off{opacity:0}
 
-/* flash クラスが付く 0.6 秒間だけ点灯 */
-#lamp.flash .lamp-on {opacity:1;filter:drop-shadow(0 0 18px #b8f) brightness(1.5)}
-#lamp.flash .lamp-off{opacity:0}
-
-/* ボタン ----------------------------------------------------- */
-button{
-  display:inline-block;
-  padding:1rem 2.4rem;
-  margin:.4rem;
-  border:none;border-radius:.8rem;
-  font-size:1.2rem;font-weight:bold;
+/* --- GO ボタン --------------------------------------------- */
+/* style.css ─ 既存の .btn-go をまるごと置き換え */
+.btn-go{
+  position:fixed;
+  bottom:50rem;             /* 画面最下部ギリギリまで下げる */
+  left:50%;
+  transform:translateX(-50%);
+  width:100vw;   max-width:250px;  /* ひと回り小型化（元は 60vw） */
+  height:100vw;  max-height:250px;
+  border-radius:50%;
+  border:6px solid #ff6767;
+  background:radial-gradient(#ddd 30%, #aaa 90%);
+  font-size:1.8rem; font-weight:bold; color:#000;
+  box-shadow:0 0 14px #f55;
 }
-.btn-main{background:#ff6767;color:#000}
-.btn-main:active{transform:scale(.97)}
-.btn-sub {background:#555;color:#fff}
+.btn-go:active{transform:translateX(-50%) scale(.96)}

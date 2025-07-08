@@ -1,43 +1,43 @@
-/* 要素取得 --------------------------------------------------- */
-const hitsEl   = document.getElementById('hits');
-const spinsEl  = document.getElementById('spins');
-const pushBtn  = document.getElementById('push');
-const resetBtn = document.getElementById('reset');
-const lamp     = document.getElementById('lamp');
-const hitSound = document.getElementById('snd-hit');
+/* 要素 ------------------------------------------------------ */
+const hitsEl  = document.getElementById('hits');
+const spinsEl = document.getElementById('spins');
+const pushBtn = document.getElementById('push');
+const lamp    = document.getElementById('lamp');
+const hitSE   = document.getElementById('snd-hit');
 
-/* 変数（localStorage から復帰） ----------------------------- */
+/* 状態 ------------------------------------------------------ */
 let hits  = +localStorage.getItem('hits')  || 0;
 let spins = +localStorage.getItem('spins') || 0;
 render();
 
-/* メインボタン ---------------------------------------------- */
+/* メインロジック（唯一の click ハンドラ） ------------------ */
 pushBtn.addEventListener('click', () => {
-  spins++;
-  if (Math.random() < 1/128){      // 1/128 でペカ
-    hits++;
-    flashLamp();
+
+  /* 1️⃣ 点灯中なら“消灯するだけ”でリターン */
+  if (lamp.classList.contains('on')){
+    lamp.classList.remove('on');
+    lamp.classList.add('off');
+    return;
   }
-  persist(); render();
+
+  /* 2️⃣ 消灯中なら 1 回転扱い */
+  spins++;
+
+  /* 3️⃣ 1/128 でペカ */
+  if (Math.random() < 1/12){
+    hits++;
+    lamp.classList.remove('off');
+    lamp.classList.add('on');          // ← replace を使わず安全に
+    hitSE.currentTime = 0;
+    hitSE.play().catch(()=>{});
+    if (navigator.vibrate) navigator.vibrate(70);
+  }
+
+  persist();
+  render();
 });
 
-/* リセット -------------------------------------------------- */
-resetBtn.addEventListener('click', () => {
-  if (!confirm('全部 0 にしますか？')) return;
-  hits = spins = 0;
-  persist(); render();
-});
-
-/* ランプを光らせて音＆振動 ---------------------------------- */
-function flashLamp(){
-  lamp.classList.add('flash');
-  hitSound.currentTime = 0;
-  hitSound.play().catch(()=>{});
-  if (navigator.vibrate) navigator.vibrate(70);
-  setTimeout(()=>lamp.classList.remove('flash'), 600);
-}
-
-/* 保存＆表示 ------------------------------------------------ */
+/* 保存 & 表示 ---------------------------------------------- */
 function persist(){
   localStorage.setItem('hits', hits);
   localStorage.setItem('spins', spins);
